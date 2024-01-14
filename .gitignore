@@ -1,0 +1,8 @@
+# .gitignore
+
+# Conda environment
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
