@@ -61,9 +61,10 @@ batch_size = 10
 for epoch in range(num_epochs):
     for x, y in data_iter(batch_size, features, labels):
         l = loss(net(x, w, b), y)
+        ## we get sum of training data results, 
         l.sum().backward()
         sgd([w, b], lr, batch_size)
-    
+    # here we print result after one epoch, 
     with torch.no_grad():
         train_l = loss(net(features, w, b), labels)
         print(f'epoch {epoch + 1}, loss {float(train_l.mean()):f}')
