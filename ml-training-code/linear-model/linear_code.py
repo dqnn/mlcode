@@ -3,14 +3,21 @@ import random
 from d2l import torch as d2l
 
 
+
+### run python ml-training-code/linear-model/linear_code.py
+
+# genearte label and training data
 def synthetic_data(w, b, num_examples):
+    #generate label data
     x = torch.normal(0, 1, (num_examples, len(w)))
     y = torch.matmul(x, w) + b
+    ## genearte training data
     y += torch.normal(0,0.01, y.shape)
+    # only 1 column
     return x, y.reshape((-1, 1))
 
 
-
+##generate mini_batch data for training
 def data_iter(batch_size, features, labels):
     num_examples = len(features)
     indexes = list(range(num_examples))
@@ -26,7 +33,10 @@ def linreg(x, w, b):
 def squared_loss(y_hat, y):
     return (y_hat - y.reshape(y_hat.shape)) ** 2/2
 
+#genearte grad descent
+#params = [w, b]
 def sgd(params, lr, batch_sie):
+    ## here we shutdown all grad descent computation, update [w, b]
     with torch.no_grad():
         for param in params:
             param -= lr * param.grad/batch_size
@@ -35,11 +45,8 @@ def sgd(params, lr, batch_sie):
     
 
 
-
-
-
-## start to train
-lr = 0.01
+## start to train, lr = learning rate
+lr = 0.005
 num_epochs = 30
 net = linreg
 loss = squared_loss
