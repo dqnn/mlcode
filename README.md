@@ -5,7 +5,7 @@ for deep learning code and documents
 * install conda: sh Miniconda3-py39_4.12.0-MacOSX-x86_64.sh -b 
 *  ~/miniconda3/bin/conda init
 * conda create --name mlenv python=3.9 -y
-* conda activate 
+* conda activate mlenv
 
 # Install packages
 * pip install torch
