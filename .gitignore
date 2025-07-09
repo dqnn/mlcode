@@ -6,3 +6,11 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+ml-training-code/data/FashionMNIST/raw/t10k-images-idx3-ubyte
+ml-training-code/data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz
+ml-training-code/data/FashionMNIST/raw/t10k-labels-idx1-ubyte
+ml-training-code/data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz
+ml-training-code/data/FashionMNIST/raw/train-images-idx3-ubyte
+ml-training-code/data/FashionMNIST/raw/train-images-idx3-ubyte.gz
+ml-training-code/data/FashionMNIST/raw/train-labels-idx1-ubyte
+ml-training-code/data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
