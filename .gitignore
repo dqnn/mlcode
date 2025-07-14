@@ -14,3 +14,4 @@ ml-training-code/data/FashionMNIST/raw/train-images-idx3-ubyte
 ml-training-code/data/FashionMNIST/raw/train-images-idx3-ubyte.gz
 ml-training-code/data/FashionMNIST/raw/train-labels-idx1-ubyte
 ml-training-code/data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
+.DS_Store
