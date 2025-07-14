@@ -1,3 +1,11 @@
+import torch 
+import torchvision
+from IPython import display
+from d2l import torch as d2l
+from torch.utils import data
+from torchvision import transforms
+import matplotlib.pyplot as plt
+
 #  train code
 def train_epoch_ch3(net, train_iter, loss, updater):
     if isinstance(net, torch.nn.Module):
@@ -20,14 +28,17 @@ def train_epoch_ch3(net, train_iter, loss, updater):
     return metric[0]/metric[2], metric[1]/metric[2]
 
 #draw the graph
+
 class Animator:
     def __init__(self, xlabel=None, ylabel=None, legend =None, xlim=None, 
                  ylim = None, xscale='linear', yscale='linear', fmts=('-', 'm--', 'g-', 'r:'), 
                  nrows =1, ncols=1, figsize=(3.5, 2.5)):
+        from d2l import torch as d2l
+        d2l.use_svg_display()
         # 增量地绘制多条线
         if legend is None:
             legend = []
-        d2l.use_svg_display()
+        
         self.fig, self.axes = d2l.plt.subplots(nrows, ncols, figsize=figsize)
         if nrows * ncols == 1:
             self.axes = [self.axes, ]
