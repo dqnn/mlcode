@@ -1,12 +1,12 @@
 import torch 
 import torchvision
 from IPython import display
-from d2l import torch as d2l
 from torch.utils import data
 from torchvision import transforms
 import matplotlib.pyplot as plt
-from Animator import Animator
-from Accumulator import Accumulator
+from animator_utils import Animator
+from accumulator_utils import Accumulator
+
     
 #  train code
 def train_epoch_ch3(net, train_iter, loss, updater):

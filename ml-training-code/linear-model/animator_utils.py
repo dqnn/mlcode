@@ -4,6 +4,8 @@ from torch.utils import data
 from torchvision import transforms
 import matplotlib.pyplot as plt
 
+
+
 #draw the graph
 class Animator:
     def __init__(self, xlabel=None, ylabel=None, legend =None, xlim=None, 
