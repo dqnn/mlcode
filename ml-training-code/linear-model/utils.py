@@ -11,9 +11,7 @@ from d2l import torch as d2l
 class Animator:
     def __init__(self, xlabel=None, ylabel=None, legend =None, xlim=None, 
                  ylim = None, xscale='linear', yscale='linear', fmts=('-', 'm--', 'g-', 'r:'), 
-                 nrows =1, ncols=1, figsize=(3.5, 2.5)):
-        from d2l import torch as d2l
-        print("D2L loaded:", d2l)
+                 nrows =1, ncols=1, figsize=(10, 3)):
         d2l.use_svg_display()
         # 增量地绘制多条线
         if legend is None:
@@ -76,7 +74,6 @@ def train_epoch_ch3(net, train_iter, loss, updater):
         net.train()
     # [0,0] * 3  
     metric = Accumulator(3)
-    print("Animator type check:", type(metric))
     # X is the training data [], y is the label [8,3,2]
     for X, y in train_iter:
         y_hat = net(X)
@@ -95,7 +92,7 @@ def train_epoch_ch3(net, train_iter, loss, updater):
 #  loss is cross_entropy
 def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater): 
     """训练模型（定义见第3章）"""
-    animator = Animator(xlabel='epoch', xlim=[1, num_epochs], ylim=[0.3, 0.9],
+    animator = Animator(xlabel='epoch', xlim=[1, num_epochs], ylim=[0.1, 3],
     legend=['train loss', 'train acc', 'test acc'])
     for epoch in range(num_epochs):
         train_metrics = train_epoch_ch3(net, train_iter, loss, updater)
