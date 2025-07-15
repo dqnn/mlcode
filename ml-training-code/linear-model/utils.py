@@ -4,16 +4,79 @@ from IPython import display
 from torch.utils import data
 from torchvision import transforms
 import matplotlib.pyplot as plt
-from animator_utils import Animator
-from accumulator_utils import Accumulator
+from d2l import torch as d2l
 
+
+#draw the graph
+class Animator:
+    def __init__(self, xlabel=None, ylabel=None, legend =None, xlim=None, 
+                 ylim = None, xscale='linear', yscale='linear', fmts=('-', 'm--', 'g-', 'r:'), 
+                 nrows =1, ncols=1, figsize=(3.5, 2.5)):
+        from d2l import torch as d2l
+        print("D2L loaded:", d2l)
+        d2l.use_svg_display()
+        # 增量地绘制多条线
+        if legend is None:
+            legend = []
+        
+        self.fig, self.axes = d2l.plt.subplots(nrows, ncols, figsize=figsize)
+        if nrows * ncols == 1:
+            self.axes = [self.axes, ]
+        # 使用lambda函数捕获参数
+        self.config_axes = lambda: d2l.set_axes(
+            self.axes[0], xlabel, ylabel, xlim, ylim, xscale, yscale, legend)
+        self.X, self.Y, self.fmts = None, None, fmts
+    def add(self, x, y):
+        # 向图表中添加多个数据点
+        if not hasattr(y, "__len__"):
+            y = [y]
+        n = len(y)
+        if not hasattr(x, "__len__"):
+            x = [x] * n
+        if not self.X:
+            self.X = [[] for _ in range(n)]
+        if not self.Y:
+            self.Y = [[] for _ in range(n)]
+        for i, (a, b) in enumerate(zip(x, y)):
+            if a is not None and b is not None:
+                self.X[i].append(a)
+                self.Y[i].append(b)
+        self.axes[0].cla()
+        for x, y, fmt in zip(self.X, self.Y, self.fmts):
+            self.axes[0].plot(x, y, fmt)
+        self.config_axes()
+        display.display(self.fig)
+        display.clear_output(wait=True)
+
+#  data[0] = 存储正确预测的数量 
+#  data[1] = 预测的总数量
+class Accumulator:
+    def __init__(self, n):
+        
+        # [0,0] * n --> repeat [0,0] n times, for example
+        # [0,0] * 2 -> [0,0,0,0]
+        self.data = [0,0] * n
     
+    def add(self, *args):
+        #  will return [存储正确预测的数量, 预测的总数量]
+        # 如果 self.data = [0,0,0,0]，args = [1,0],[256]，那么：
+        # zip(self.data, args) ➜ [(1.0, 4), (2.0, 5), (3.0, 6)]
+        ## print('agrs: ' + str(args)) --> agrs: (212.0, 256)
+        self.data =[a+float(b) for a, b in zip(self.data, args)]
+    
+    def reset(self):
+        self.data = [0.0]* len(self.data)
+    
+    def __getitem__(self, idx):
+        return self.data[idx]
+
 #  train code
 def train_epoch_ch3(net, train_iter, loss, updater):
     if isinstance(net, torch.nn.Module):
         net.train()
     # [0,0] * 3  
     metric = Accumulator(3)
+    print("Animator type check:", type(metric))
     # X is the training data [], y is the label [8,3,2]
     for X, y in train_iter:
         y_hat = net(X)
@@ -30,7 +93,7 @@ def train_epoch_ch3(net, train_iter, loss, updater):
     return metric[0]/metric[2], metric[1]/metric[2]
 
 #  loss is cross_entropy
-def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater): #@save
+def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater): 
     """训练模型（定义见第3章）"""
     animator = Animator(xlabel='epoch', xlim=[1, num_epochs], ylim=[0.3, 0.9],
     legend=['train loss', 'train acc', 'test acc'])
