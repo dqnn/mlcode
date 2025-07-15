@@ -11,7 +11,7 @@ from d2l import torch as d2l
 class Animator:
     def __init__(self, xlabel=None, ylabel=None, legend =None, xlim=None, 
                  ylim = None, xscale='linear', yscale='linear', fmts=('-', 'm--', 'g-', 'r:'), 
-                 nrows =1, ncols=1, figsize=(10, 3)):
+                 nrows =1, ncols=1, figsize=(10, 2)):
         d2l.use_svg_display()
         # 增量地绘制多条线
         if legend is None:
