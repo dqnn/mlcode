@@ -28,7 +28,7 @@ def data_iter(batch_size, features, labels):
 
 
 def linreg(x, w, b):
-    return torch.matmul(x, w) + b
+    return x@w + b
 
 def squared_loss(y_hat, y):
     return (y_hat - y.reshape(y_hat.shape)) ** 2/2
