@@ -10,7 +10,7 @@ from d2l import torch as d2l
 def synthetic_data(w, b, num_examples):
     #generate label data
     x = torch.normal(0, 1, (num_examples, len(w)))
-    y = torch.matmul(x, w) + b
+    y = x@w + b # same as y = torch.matmul(x, w) + b
     ## genearte training data
     y += torch.normal(0,0.01, y.shape)
     # only 1 column
