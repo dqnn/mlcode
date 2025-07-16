@@ -4,7 +4,7 @@ from d2l import torch as d2l
 
 
 
-### run python ml-training-code/linear-model/linear_code.py
+### python ml-training-code/ch3_linear_model/linear_code.py
 
 # genearte label and training data
 def synthetic_data(w, b, num_examples):
